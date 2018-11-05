@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!-- Actions - login (username, password, link to register)
+Search recs by city
+search recs by username
+button create/edit city rec page (only show if logged in) -->
+
+<form action='/login'>
+<input type="submit" value="Login"'>
+</form>
+
+<form action='/logout'>
+<input type="submit" value="Logout"'>
+</form>
+
+{% endblock %}
