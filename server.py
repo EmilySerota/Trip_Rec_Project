@@ -11,15 +11,6 @@ app.secret_key = "ABC"
 
 app.jinja_env.undefined = StrictUndefined
 
-db = SQLAlchemy()
-
-def connect_to_db(app):
-    """Connect the database to our Flask app."""
-
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///hackbright'
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    db.app = app
-    db.init_app(app)
 
 #######################################################################
 
@@ -30,10 +21,14 @@ def index():
     """Homepage"""
     return render_template('homepage.html')
 
+
+
 @app.route('/login')
 def login_form():
     """show login form"""
     return render_template('login_form.html')
+
+
 
 @app.route('/login', methods=['POST'])
 def login_process():
@@ -58,6 +53,32 @@ def login_process():
         session['username'] = username
         return redirect('login')
 
+@app.route('/register')
+def reg_form():
+    """show register form"""
+    return render_template('reg_form.html')
+
+@app.route('/register', methods=['POST'])
+def reg_process():
+    """process registration"""
+    username = request.form.get('username')
+    password = request.form.get('password')
+    fname = request.form.get('fname')
+    lname = request.form.get('lname')
+    email = request.form.get('email')
+
+    #if username is not already in database add
+    if not User.query.filter_by(username = username).all():
+        new_user = User(username=username, password=password, fname=fname, lname=lname, email=email)
+        db.session.add(new_user)
+        db.session.commit()
+
+    return redirect('/')
+
+
+
+
+##############################################################
 
     if __name__ == "__main__":
         #connect_to_db(app)
@@ -70,5 +91,5 @@ def login_process():
 
         DebugToolbarExtension(app)
 
-        app.run(host="0.0.0.0")
+        aapp.run(host='0.0.0.0')
 
