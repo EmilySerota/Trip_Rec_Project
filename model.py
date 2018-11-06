@@ -1,6 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy 
 
-db = SQAlchemy()
+db = SQLAlchemy()
 
 ##############################################
 #Model definitions
@@ -12,7 +12,7 @@ class User(db.Model):
 
     user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     username = db.Column(db.String(20), nullable=False)
-    password = db.Column(db.string(30), nullable=False)
+    password = db.Column(db.String(30), nullable=False)
     f_name = db.Column(db.String(20), nullable=True)
     l_name = db.Column(db.String(30), nullable=True)
     email = db.Column(db.String(40), nullable=False)
@@ -28,8 +28,8 @@ class Recommendation(db.Model):
     __tablename__ = 'recommendations'
 
     rec_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    city_id = db.Column(db.Integer, db.ForeignKey(cities.city_id))
-    user_id = db.Column(db.Integer, db.ForeignKey(users.user_id))
+    city_id = db.Column(db.Integer, db.ForeignKey('cities.city_id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
 
     def __repr__(self):
 
