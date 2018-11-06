@@ -1,16 +1,13 @@
 from jinja2 import StrictUndefined
-from flask import (Flask, render_template, redirect, request, flash, session)
-from flask_debugtoolbar import DebugToolbarExtension
-from flask_sqlalchemy import SQLAlchemy
+from flask import Flask, render_template, redirect, request, flash, session
 
-from model import User, City, Recommendation, Stay, Eat, Do, db
+from flask_debugtoolbar import DebugToolbarExtension
+
+from model import User, City, Recommendation, Stay, Eat, Do, connect_to_db, db
 
 app = Flask(__name__)
 
 app.secret_key = "ABC"
-
-app.jinja_env.undefined = StrictUndefined
-
 
 #######################################################################
 
@@ -39,15 +36,17 @@ def login_process():
     password = request.form.get('password')
 
     #will need to check database for username, then if that fits check that username & password are equal
-    user = User.query.filter_by(username = username).first
+    user = User.query.filter_by(username = username).first()
 
     #if username doesnt exist send to register page
     if not user:
         return redirect('/register')
+
     #if password is wrong flash incorrect password
     elif password != user.password:
         flash('Incorrect password')
         return redirect('/login')
+
     #if they are then add to session 
     else:
         session['username'] = username
@@ -61,6 +60,7 @@ def reg_form():
 @app.route('/register', methods=['POST'])
 def reg_process():
     """process registration"""
+
     username = request.form.get('username')
     password = request.form.get('password')
     fname = request.form.get('fname')
@@ -69,27 +69,27 @@ def reg_process():
 
     #if username is not already in database add
     if not User.query.filter_by(username = username).all():
-        new_user = User(username=username, password=password, fname=fname, lname=lname, email=email)
+        new_user = User(username=username, password=password, f_name=fname, l_name=lname, email=email)
         db.session.add(new_user)
         db.session.commit()
 
     return redirect('/')
 
 
-
-
 ##############################################################
 
-    if __name__ == "__main__":
-        #connect_to_db(app)
+if __name__ == "__main__":
+    # We have to set debug=True here, since it has to be True at the
+    # point that we invoke the DebugToolbarExtension
+    app.debug = True
+    # make sure templates, etc. are not cached in debug mode
+    app.jinja_env.auto_reload = app.debug
 
-        app.debug = True
+    connect_to_db(app)
 
-        app.jinja_env.auto_reload = app.debug
+    # Use the DebugToolbar
+    DebugToolbarExtension(app)
 
+    app.run(port=5001, host='0.0.0.0')
 
-
-        DebugToolbarExtension(app)
-
-        aapp.run(host='0.0.0.0')
 

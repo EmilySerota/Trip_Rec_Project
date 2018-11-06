@@ -11,9 +11,9 @@ class User(db.Model):
     __tablename__ = 'users'
 
     user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    username = db.Column(db.String(20), nullable=False)
+    username = db.Column(db.String(30), nullable=False)
     password = db.Column(db.String(30), nullable=False)
-    f_name = db.Column(db.String(20), nullable=True)
+    f_name = db.Column(db.String(30), nullable=True)
     l_name = db.Column(db.String(30), nullable=True)
     email = db.Column(db.String(40), nullable=False)
 
@@ -101,7 +101,7 @@ def connect_to_db(app):
     """Connect the database to our Flask app."""
 
     # Configure to use our PstgreSQL database
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///ratings'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///trips'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.app = app
     db.init_app(app)
@@ -113,20 +113,7 @@ if __name__ == "__main__":
 
     from server import app
     connect_to_db(app)
+    db.create_all()
 
-    #print("Connected to DB.")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
         
