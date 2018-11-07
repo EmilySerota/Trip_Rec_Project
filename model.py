@@ -35,6 +35,7 @@ class Recommendation(db.Model):
 
         return f'<Recommendation rec_id={self.rec_id} city_id={self.city_id} user_id={self.user_id}>'
 
+        user = db.relationship('User', backref=db.backref('recommendations'))
 
 class City(db.Model):
     """table of city info."""
@@ -42,6 +43,7 @@ class City(db.Model):
     __tablename__ = 'cities'
 
     city_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    city_name = db.Column(db.String, nullable=False)
     city_info = db.Column(db.String, nullable=False)
     stay_id = db.Column(db.Integer, db.ForeignKey('stays.stay_id'))
     eat_id = db.Column(db.Integer, db.ForeignKey('eats.eat_id'))
@@ -50,6 +52,8 @@ class City(db.Model):
     def __repr__(self):
 
         return f'<City city_id={self.city_id} city_info={self.city_info} stay_id={self.stay_id} eat_id={self.eat_id} do_id={self.do_id}>'
+
+    rec = db.relationship('Recommendation', backref=db.backref('cities'))
 
 class Stay(db.Model):
     """table of places to stay - recommendations"""
@@ -65,6 +69,8 @@ class Stay(db.Model):
 
         return f'<Stay stay_id={self.stay_id} stay_name={self.stay_name} stay_info={self.stay_info} city_id={self.city_id} >'
 
+        city = db.relationship('City', backref=db.backref('stays'))
+
 class Eat(db.Model):
     """table of places to eat - recommendations"""
 
@@ -78,6 +84,8 @@ class Eat(db.Model):
     def __repr__(self):
 
         return f'<Eat eat_id={self.eat_id} eat_name={self.eat_name} eat_info={self.eat_info} city_id={self.city_id} >'
+
+    city = db.relationship('City', backref=db.backref('eats'))
 
 class Do(db.Model):
     """table of things/activities to do - recommendations"""
@@ -93,7 +101,7 @@ class Do(db.Model):
 
         return f'<Do do_id={self.do_id} do_name={self.do_name} do_info={self.do_info} city_id={self.city_id} >'
 
-
+    city = db.relationship('City', backref=db.backref('dos'))
 
 ###########################################################
 

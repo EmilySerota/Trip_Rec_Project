@@ -76,6 +76,28 @@ def reg_process():
     return redirect('/')
 
 
+@app.route('/search_city/<city_name>')
+def city_name_search(city_name):
+
+    #pull in object info for that specific city, then get city_id
+    city_info = City.query.get(city_name).one()
+    city_id = city_info.city_id
+    user_by_city = Usery.query.filter_by()
+
+    #pull in city objects by city name provided above in homepage search
+    #city = City.query.get(city_name)
+
+    #get username info for those with that city_id
+    #users = User.query.filter_by()
+
+    return render_template('username_search.html', )
+    
+    
+
+   
+
+
+
 ##############################################################
 
 if __name__ == "__main__":
