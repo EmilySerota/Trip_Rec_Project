@@ -79,10 +79,21 @@ def reg_process():
 @app.route('/search_city/<city_name>')
 def city_name_search(city_name):
 
-    #pull in object info for that specific city, then get city_id
-    city_info = City.query.get(city_name).one()
-    city_id = city_info.city_id
-    user_by_city = Usery.query.filter_by()
+    #pull in object info for that specific city to get city id
+    city_obj = City.query.filter_by(city_name=city_name).one()
+
+    recs = city_obj.recommendations
+
+    #then get indv city_id to use for recs & usernames
+    #city_id = city_obj.city_id
+
+    #get a list of objects in recommendations for that city using that indv city id so you can pass in rec name
+    #rec_objs_by_city = Recommendation.query.filter_by(city_id=city_id)
+
+    #user_objs_by_recid = User.query.get(rec_id=).all()
+    #get a list of 
+
+    #only need city-name & user-username
 
     #pull in city objects by city name provided above in homepage search
     #city = City.query.get(city_name)
@@ -90,7 +101,7 @@ def city_name_search(city_name):
     #get username info for those with that city_id
     #users = User.query.filter_by()
 
-    return render_template('username_search.html', )
+    return render_template('username_search.html', recs=recs)
     
     
 
