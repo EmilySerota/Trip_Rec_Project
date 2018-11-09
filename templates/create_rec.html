@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>Create a new recommendation to share with others!</h2>
+
+<form action='/create_rec'>
+    
+    <b>TITLE:</b><br>
+    Please enter what you would like to call your review: <input type='text' name=rec_name><br><br>
+
+    <b>CITY:</b><br>
+    Please enter the city you will review: <input type='text' name=city_name><br>
+    Add an explanation on what you loved about the city: <input type='text' name=city_info><br><br>
+
+    <b>STAY:</b><br>
+    Where did you stay: <input type='text' name=stay_name><br>
+    Add information about your stay: <input type='text' name=stay_info><br><br>
+
+    <b>EAT:</b><br>
+    Where must you eat when visiting: <input type='text' name=eat_name><br>
+    Add information about those restaurants: <input type='text' name=eat_info><br><br>
+
+    <b>DO:</b><br>
+    What activities do you recommend: <input type='text' name=do_name><br>
+    Why did you love doing them: <input type='text' name=do_info><br><br>
+
+<input type='submit'>
+</form>
+
+<br>
+<form action='/'>
+    <input type="submit" value="Return Home!" />
+</form>
+
+{% endblock %}

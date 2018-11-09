@@ -32,6 +32,11 @@ class Recommendation(db.Model):
     city_id = db.Column(db.Integer, db.ForeignKey('cities.city_id'))
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
 
+    def save(self):
+        """save new recs"""
+        db.session.add(self)
+        sb.session.commit()
+
     def __repr__(self):
 
         return f'<Recommendation rec_id={self.rec_id} city_id={self.city_id} user_id={self.user_id}>'
@@ -66,7 +71,7 @@ class City(db.Model):
 
     #connect to Do db backreferencing cities table
     do = db.relationship('Do', foreign_keys=[do_id], backref=db.backref('cities'))
-    
+
 
 
 class Stay(db.Model):

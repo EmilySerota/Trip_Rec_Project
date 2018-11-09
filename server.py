@@ -23,6 +23,7 @@ def index():
 @app.route('/login')
 def login_form():
     """show login form"""
+
     return render_template('login_form.html')
 
 
@@ -51,6 +52,15 @@ def login_process():
     else:
         session['username'] = username
         return redirect('login')
+
+@app.route('logout')
+def log_out():
+    """log the user out"""
+
+    session.pop('username', NONE)
+    flash('Your are now logged out')
+    return redirect('/')
+
 
 @app.route('/register')
 def reg_form():
@@ -89,8 +99,45 @@ def city_name_search():
     recs = city_obj.recommendations
 
     return render_template('username_search.html', recs=recs, city_name=city_name)
-    
 
+@app.route('/create_rec')
+def create_rec():
+    """sends user to the new create page"""
+    #if value == 'create':
+    return render_template('create_rec.html')
+    #else:
+
+
+
+@app.route('/create_rec', methods = ['POST'])
+def add_rec_to_db():
+    """recordes info submitted by user, creates the objects for the db, and adds to the db"""
+
+    # Update session on login
+    user_id = session['user_id']
+
+    # Create all of these objects: city, stay, do, eat
+    stay = Stay(stay_name= request.form.get('stay_name'), stay_info = request.form.get('stay_info'))
+    eat = Eat(eat_name= request.form.get('eat_name'), eat_info = request.form.get('eat_info'))
+    do = Do(do_name= request.form.get('do_name'), do_info = request.form.get('do_info'))
+
+    city = City(city_name= request.form.get('city_name'), city_info = request.form.get('city_info'))
+
+    recommendation = Recommendation(rec_name = request.form.get('rec_name'), user_id=user_id)
+
+
+    #create the objects
+    # recomendation = Recommendation(city_name = request.form.get('city_name'), rec_name = request.form.get('rec_name'),
+    #                     city_info = request.form.get('city_info'), stay_name = request.form.get('stay_name'), 
+    #                     stay_info = request.form.get('stay_info'), eat_name = request.form.get('eat_name'), 
+    #                     eat_info = request.form.get('eat_info'), do_name = request.form.get('do_name'),
+    #                     do_info = request.form.get('do_info'), user_id=user_id)
+
+    #call the save function to add to the database
+    Recommendation.save(recomendation)
+    flash("Awesome! You've created a recommendation")
+    return redirect('/')
+    #return redirect(f'/recommendations/{recommendations.rec_id}')
 
 
 
