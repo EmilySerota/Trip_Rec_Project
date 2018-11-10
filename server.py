@@ -3,7 +3,7 @@ from flask import Flask, render_template, redirect, request, flash, session
 
 from flask_debugtoolbar import DebugToolbarExtension
 
-from model import User, City, Recommendation, Stay, Eat, Do, connect_to_db, db
+from model import User, City, Recommendation, connect_to_db, db
 
 app = Flask(__name__)
 
@@ -51,9 +51,9 @@ def login_process():
     #if they are then add to session 
     else:
         session['username'] = username
-        return redirect('login')
+        return redirect('/')
 
-@app.route('logout')
+@app.route('/logout')
 def log_out():
     """log the user out"""
 
@@ -81,7 +81,7 @@ def reg_process():
     if not User.query.filter_by(username = username).all():
         new_user = User(username=username, password=password, f_name=fname, l_name=lname, email=email)
         db.session.add(new_user)
-        db.session.commit()
+        db.session.commit(new_user)
 
     return redirect('/')
 
@@ -93,7 +93,10 @@ def city_name_search():
 
     city_name = request.args.get('city_name')
     #pull in object info for that specific city to get city id
-    city_obj = City.query.filter_by(city_name=city_name).one()
+    city_obj = City.query.filter_by(city_name=city_name).first()
+    
+    #will need to add soemthing in case noone has reviewed the city
+    #if city_obj == None:
 
     #get the user rec object for all cities of that name
     recs = city_obj.recommendations
@@ -109,32 +112,42 @@ def create_rec():
 
 
 
-@app.route('/create_rec', methods = ['POST'])
+@app.route('/create_new_rec', methods = ['POST'])
 def add_rec_to_db():
     """recordes info submitted by user, creates the objects for the db, and adds to the db"""
 
-    # Update session on login
-    user_id = session['user_id']
+    # Update session on login CAN THIS BE EASIER? Now I"m getting the username in the session, 
+    #then getting that user's user object, then get the user id to pass into the rec id
+    username = session['username']
+    user_obj = User.query.filter_by(username=username).first()
+    user_id = user_obj.user_id
 
-    # Create all of these objects: city, stay, do, eat
-    stay = Stay(stay_name= request.form.get('stay_name'), stay_info = request.form.get('stay_info'))
-    eat = Eat(eat_name= request.form.get('eat_name'), eat_info = request.form.get('eat_info'))
-    do = Do(do_name= request.form.get('do_name'), do_info = request.form.get('do_info'))
-
-    city = City(city_name= request.form.get('city_name'), city_info = request.form.get('city_info'))
-
-    recommendation = Recommendation(rec_name = request.form.get('rec_name'), user_id=user_id)
+    #need to pass in the city id that is created in the city table as well. Right now the city_id field is blank in rec table.
 
 
-    #create the objects
-    # recomendation = Recommendation(city_name = request.form.get('city_name'), rec_name = request.form.get('rec_name'),
-    #                     city_info = request.form.get('city_info'), stay_name = request.form.get('stay_name'), 
-    #                     stay_info = request.form.get('stay_info'), eat_name = request.form.get('eat_name'), 
-    #                     eat_info = request.form.get('eat_info'), do_name = request.form.get('do_name'),
-    #                     do_info = request.form.get('do_info'), user_id=user_id)
+    #get the city_name & info separatel since we need city_name for query anyway
+    city_name = request.form.get('city_name')
+    city_info = request.form.get('city_info')
+
+    #create the city obj. Doing this first to get the city id for the rec obj
+    city = City(city_name=city_name, city_info=city_info)
 
     #call the save function to add to the database
-    Recommendation.save(recomendation)
+    db.session.add(city)
+    db.session.commit()
+
+    #need to get the id of the city you just added to the db to pass into the rec db below so they are linked
+
+
+    recommendation = Recommendation(rec_name = request.form.get('rec_name'), stay_name= request.form.get('stay_name'), 
+                stay_info = request.form.get('stay_info'), eat_name= request.form.get('eat_name'), 
+                eat_info = request.form.get('eat_info'), do_name= request.form.get('do_name'), 
+                do_info = request.form.get('do_info'), user_id=user_id, city_id=city_id)
+
+    #call the save function to add to the database
+    db.session.add(recommendation)
+    db.session.commit()
+
     flash("Awesome! You've created a recommendation")
     return redirect('/')
     #return redirect(f'/recommendations/{recommendations.rec_id}')
