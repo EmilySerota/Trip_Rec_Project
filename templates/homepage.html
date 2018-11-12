@@ -2,7 +2,6 @@
 {% block content %}
 
 <!-- Actions - login (username, password, link to register)
-Search recs by city
 search recs by username
 button create/edit city rec page (only show if logged in) -->
 
@@ -30,10 +29,12 @@ Search for recommendations by username! <input type='text' name= 'search_by_user
 <input type='submit'>
 </form><br>
 
-<form action='/create_edit'>Would you like to create a new recommendation or edit an existing page?<br>
-    <input type='radio' name=create_edit value='create'>Create
-    <input type='radio' name=create_edit value='edit'>Edit
-    <input type='submit'>
+<form action='/create_rec'>
+<input type="submit" value="Create New Recommendation!"'>
+</form><br>
+
+<form action='/recommendations/edit'>
+<input type="submit" value="View/Edit Exisiting Recommendations"'>
 </form>
 
 {% endblock %}

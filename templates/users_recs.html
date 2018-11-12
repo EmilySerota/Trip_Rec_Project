@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+
+  <h2>Here are your past recommendations {{ username }}:</h2>
+
+  <ul>    
+    {% for rec in user_recs %}
+        <li>
+          <a href="/view_recommendation/{{ rec.rec_id }}">'
+            {{ rec.city.city_name }}
+          </a>
+        </li>
+    {% endfor %}
+  </ul>
+
+  <br>
+<form action='/'>
+    <input type="submit" value="Return Home!" />
+</form>
+
+{% endblock %}

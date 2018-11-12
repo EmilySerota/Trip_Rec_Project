@@ -96,7 +96,7 @@ def city_name_search():
     #pull in object info for that specific city - purpose: to get city id
     city_obj = City.query.filter_by(city_name=city_name).first()
     
-    #will need to add soemthing in case noone has reviewed the city
+    #will need to add logic in case noone has reviewed the city
     #if city_obj == None:
 
     #get the user rec object for all cities of that name
@@ -131,7 +131,7 @@ def add_rec_to_db():
     city_info = request.form.get('city_info')
 
 
-    #create the city obj if it doesn't exist other wise get the city_id ror recs instantiation.
+    #create the city obj if it doesn't exist other wise get the city_id for recs instantiation.
     city_obj = City.query.filter_by(city_name=city_name).first()
         
     if city_obj == None:
@@ -153,10 +153,80 @@ def add_rec_to_db():
     db.session.commit()
 
     flash("Awesome! You've created a recommendation")
-    return redirect('/')
-    #return redirect(f'/recommendations/{recommendations.rec_id}')
+    return redirect(f'/recommendations/{recommendation.rec_id}')
 
 
+
+@app.route('/view_recommendation/<int:rec_id>')
+def view_rec(rec_id):
+    """show an individual recommendation"""
+
+    recommendation = Recommendation.query.get(rec_id)
+    return render_template('recommendation_view.html', recommendation=recommendation)
+
+
+@app.route('/recommendations/edit')
+def edit_page():
+    """return list of a user's recommendations - can select edit from this page"""
+
+    #get username & user id info
+    username = session['username']
+    user_obj = User.query.filter_by(username=username).first()
+    user_id = user_obj.user_id
+
+    #get a list of recommendations that the user_id has created
+    user_recs = Recommendation.query.filter_by(user_id=user_id).all()
+
+    return render_template('users_recs.html', user_recs=user_recs, username=username)
+
+
+
+@app.route('/recommendations/<int:rec_id>/edit')
+def edit_rec(rec_id):
+    """renders recommendation so the user can make edits"""
+
+    recommendation = Recommendation.query.get(rec_id)
+    return render_template('recommendation_edit.html', recommendation=recommendation)
+
+
+
+@app.route('/recommendations/<int:rec_id>', methods=['POST'])
+def update_recommendation(rec_id):
+    """updates the new information in the database and returns the view page"""
+
+    recommendation = Recommendation.query.get(rec_id)
+
+    new_rec_name = request.form.get('rec_name')
+    new_stay_name= request.form.get('stay_name')
+    new_stay_info = request.form.get('stay_info')
+    new_eat_name = request.form.get('eat_name')
+    new_eat_info = request.form.get('eat_info')
+    new_do_name= request.form.get('do_name')
+    new_do_info = request.form.get('do_info')
+
+    #dont have to get user id or city id since that won't change
+
+    #check to see if each block of info has changed, and if it has update the information
+    if recommendation.rec_name != new_rec_name:
+        recommendation.rec_name = new_rec_name
+    if recommendation.stay_name != new_stay_name:
+        recommendation.stay_name = new_stay_name
+    if recommendation.stay_info != new_stay_info:
+        recommendation.stay_info = new_stay_info
+    if recommendation.eat_name != new_eat_name:
+        recommendation.eat_name = new_eat_name
+    if recommendation.eat_info != new_eat_info:
+        recommendation.eat_info = new_eat_info
+    if recommendation.do_name != new_do_name:
+        recommendation.do_name = new_do_name
+    if recommendation.do_info != new_do_info:
+        recommendation.do_info = new_do_info
+
+    #add and save updated information within database
+    db.session.add(recommendation)
+    db.session.commit()
+
+    return redirect(f'/recommendations/{rec_id}')
 
 ##############################################################
 

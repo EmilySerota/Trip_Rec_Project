@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2> Placeholder Rec Page </h2>
+
+<form action='/recommendations/<int:rec_id>/edit'>
+    <input type="submit" value="Edit this recommendation" />
+</form>
+
+<br>
+<form action='/'>
+    <input type="submit" value="Return Home!" />
+</form>
+
+{% endblock %}
