@@ -92,7 +92,8 @@ def city_name_search():
     #request to get city name
 
     city_name = request.args.get('city_name')
-    #pull in object info for that specific city to get city id
+
+    #pull in object info for that specific city - purpose: to get city id
     city_obj = City.query.filter_by(city_name=city_name).first()
     
     #will need to add soemthing in case noone has reviewed the city
@@ -125,20 +126,23 @@ def add_rec_to_db():
     #need to pass in the city id that is created in the city table as well. Right now the city_id field is blank in rec table.
 
 
-    #get the city_name & info separatel since we need city_name for query anyway
+    #get the city_name & info separately since we need city_name for query anyway
     city_name = request.form.get('city_name')
     city_info = request.form.get('city_info')
 
-    #create the city obj. Doing this first to get the city id for the rec obj
-    city = City(city_name=city_name, city_info=city_info)
 
-    #call the save function to add to the database
-    db.session.add(city)
-    db.session.commit()
+    #create the city obj if it doesn't exist other wise get the city_id ror recs instantiation.
+    city_obj = City.query.filter_by(city_name=city_name).first()
+        
+    if city_obj == None:
+        city = City(city_name=city_name, city_info=city_info)
+        db.session.add(city)
+        db.session.commit()
+        city_id = city.city_id
+    else:    
+        city_id = city_obj.city_id # or try city_id = city.city_id
 
-    #need to get the id of the city you just added to the db to pass into the rec db below so they are linked
-
-
+    
     recommendation = Recommendation(rec_name = request.form.get('rec_name'), stay_name= request.form.get('stay_name'), 
                 stay_info = request.form.get('stay_info'), eat_name= request.form.get('eat_name'), 
                 eat_info = request.form.get('eat_info'), do_name= request.form.get('do_name'), 
