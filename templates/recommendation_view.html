@@ -8,7 +8,7 @@
         <input type="submit" value="Edit this recommendation" />
     </form><br>
 
-    <form action='/rec_delete/<int:rec_id>'>
+    <form action='/rec_delete/{{ recommendation.rec_id }}'>
         <input type="submit" value="Delete this recommendation" />
     </form><br>
 {% else %}
