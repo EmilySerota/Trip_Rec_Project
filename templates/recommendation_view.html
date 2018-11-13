@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2> Placeholder Rec Page </h2>
+
+{% if session['username'] == recommendation.user.username %}
+    <form action='/rec_edit/{{ recommendation.rec_id }}'>
+        <input type="submit" value="Edit this recommendation" />
+    </form><br>
+
+    <form action='/rec_delete/<int:rec_id>'>
+        <input type="submit" value="Delete this recommendation" />
+    </form><br>
+{% else %}
+{% endif %}
+
+<form action='/'>
+    <input type="submit" value="Return Home!" />
+</form>
+
+ {% endblock %}
