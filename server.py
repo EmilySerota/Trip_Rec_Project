@@ -250,7 +250,7 @@ def update_recommendation(rec_id):
     db.session.add(recommendation)
     db.session.commit()
 
-    return redirect(f'/recommendations/{rec_id}')
+    return redirect('/')
 
 
 @app.route('/rec_delete/<int:rec_id>')
