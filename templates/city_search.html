@@ -7,7 +7,7 @@
     {% for rec in recs %}
         <li>
           <a href="/view_recommendation/{{ rec.rec_id }}">'
-            {{ rec.user.username }}
+            {{ rec.user.username }} : {{ rec.rec_name }}
           </a>
         </li>
     {% endfor %}
