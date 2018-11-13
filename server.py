@@ -82,7 +82,7 @@ def reg_process():
     if not User.query.filter_by(username = username).all():
         new_user = User(username=username, password=password, f_name=fname, l_name=lname, email=email)
         db.session.add(new_user)
-        db.session.commit(new_user)
+        db.session.commit()
 
     return redirect('/')
 
@@ -126,9 +126,9 @@ def username_search():
 @app.route('/create_rec')
 def create_rec():
     """sends user to the new create page"""
-    #if value == 'create':
+
     return render_template('create_rec.html')
-    #else:
+
 
 
 
@@ -176,17 +176,9 @@ def add_rec_to_db():
 
 
 
-@app.route('/view_recommendation/<int:rec_id>')
-def view_rec(rec_id):
-    """show an individual recommendation"""
-
-    recommendation = Recommendation.query.get(rec_id)
-    return render_template('recommendation_view.html', recommendation=recommendation)
-
-
 @app.route('/recommendations/edit')
 def edit_page():
-    """return list of a user's recommendations - can select edit from this page"""
+    """return list of a user's recommendations - can select edit to view then edit from this page"""
 
     #get username & user id info
     username = session['username']
@@ -197,6 +189,17 @@ def edit_page():
     user_recs = Recommendation.query.filter_by(user_id=user_id).all()
 
     return render_template('username_search.html', user_recs=user_recs, username=username)
+
+
+
+
+@app.route('/view_recommendation/<int:rec_id>')
+def view_rec(rec_id):
+    """show an individual recommendation"""
+
+    recommendation = Recommendation.query.get(rec_id)
+    return render_template('recommendation_view.html', recommendation=recommendation)
+
 
 
 
