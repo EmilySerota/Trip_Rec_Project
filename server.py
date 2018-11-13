@@ -16,6 +16,7 @@ app.secret_key = "ABC"
 @app.route('/')
 def index():
     """Homepage"""
+
     return render_template('homepage.html')
 
 
@@ -36,7 +37,7 @@ def login_process():
     username = request.form.get('username')
     password = request.form.get('password')
 
-    #will need to check database for username, then if that fits check that username & password are equal
+    #check database for username
     user = User.query.filter_by(username = username).first()
 
     #if username doesnt exist send to register page
@@ -48,7 +49,7 @@ def login_process():
         flash('Incorrect password')
         return redirect('/login')
 
-    #if they are then add to session 
+    #if they are correct then add to session 
     else:
         session['username'] = username
         return redirect('/')
@@ -57,7 +58,7 @@ def login_process():
 def log_out():
     """log the user out"""
 
-    session.pop('username', NONE)
+    session.pop('username')
     flash('Your are now logged out')
     return redirect('/')
 
@@ -158,9 +159,9 @@ def add_rec_to_db():
         db.session.commit()
         city_id = city.city_id
     else:    
-        city_id = city_obj.city_id # or try city_id = city.city_id
+        city_id = city_obj.city_id
 
-    
+    #add to the database
     recommendation = Recommendation(rec_name = request.form.get('rec_name'), stay_name= request.form.get('stay_name'), 
                 stay_info = request.form.get('stay_info'), eat_name= request.form.get('eat_name'), 
                 eat_info = request.form.get('eat_info'), do_name= request.form.get('do_name'), 
@@ -171,7 +172,7 @@ def add_rec_to_db():
     db.session.commit()
 
     flash("Awesome! You've created a recommendation")
-    return redirect(f'/recommendations/{recommendation.rec_id}')
+    return redirect(f'/view_recommendation/{recommendation.rec_id}')
 
 
 
@@ -199,7 +200,7 @@ def edit_page():
 
 
 
-@app.route('/recommendations/<int:rec_id>/edit')
+@app.route('/rec_edit/<int:rec_id>')
 def edit_rec(rec_id):
     """renders recommendation so the user can make edits"""
 
@@ -212,8 +213,10 @@ def edit_rec(rec_id):
 def update_recommendation(rec_id):
     """updates the new information in the database and returns the view page"""
 
+    #get current recommendation object
     recommendation = Recommendation.query.get(rec_id)
 
+    #get information entered by user
     new_rec_name = request.form.get('rec_name')
     new_stay_name= request.form.get('stay_name')
     new_stay_info = request.form.get('stay_info')
@@ -245,6 +248,15 @@ def update_recommendation(rec_id):
     db.session.commit()
 
     return redirect(f'/recommendations/{rec_id}')
+
+
+@app.route('/rec_delete/<int:rec_id>')
+def delete(rec_id):
+    recommendation = Recommendation.query.get(rec_id)
+    db.session.delete(recommendation)
+    db.session.commit()
+
+    return redirect('/')
 
 ##############################################################
 

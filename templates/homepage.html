@@ -1,24 +1,20 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<!-- Actions - login (username, password, link to register)
-search recs by username
-button create/edit city rec page (only show if logged in) -->
 
-<form action='/login'>
-<input type="submit" value="Login"'>
-</form>
+<!-- button create/edit city rec page (only show if logged in) -->
+{% if session['username'] %}
+{% else %}
+    <form action='/login'>
+    <input type="submit" value="Login"'>
+    </form>
 
-<form action='/logout'>
-<input type="submit" value="Logout"'>
-</form>
+    <form action='/register'>
+    <input type="submit" value="Register"'>
+    </form>
+{% endif %}
 
-<form action='/register'>
-<input type="submit" value="Register"'>
-</form>
-
-<!-- name will be the city they type and then return the city options page -->
-<form action='/search_city'>
+<br><form action='/search_city'>
 Search for recommendations by city! <input type='text' name=city_name>
 <input type='submit'>
 </form>
@@ -29,12 +25,20 @@ Search for recommendations by username! <input type='text' name= 'username'>
 <input type='submit'>
 </form><br>
 
-<form action='/create_rec'>
-<input type="submit" value="Create New Recommendation!"'>
-</form><br>
+{% if not session['username'] %}
+{% else %}
+  
+    <form action='/create_rec'>
+    <input type="submit" value="Create New Recommendation!"'>
+    </form><br>
 
-<form action='/recommendations/edit'>
-<input type="submit" value="View/Edit Exisiting Recommendations"'>
-</form>
+    <form action='/recommendations/edit'>
+    <input type="submit" value="View/Edit Exisiting Recommendations"'>
+    </form><br>
+
+    <form action='/logout'>
+    <input type="submit" value="Logout"'>
+    </form>
+{% endif %}
 
 {% endblock %}
