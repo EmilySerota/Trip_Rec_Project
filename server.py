@@ -90,7 +90,6 @@ def reg_process():
 def city_name_search():
 
     #request to get city name
-
     city_name = request.args.get('city_name')
 
     #pull in object info for that specific city - purpose: to get city id
@@ -102,7 +101,26 @@ def city_name_search():
     #get the user rec object for all cities of that name
     recs = city_obj.recommendations
 
-    return render_template('username_search.html', recs=recs, city_name=city_name)
+    return render_template('city_search.html', recs=recs, city_name=city_name)
+
+
+
+
+@app.route('/search_username')
+def username_search():
+
+    #request to get username
+    username = request.args.get('username')
+
+    #pull in object info for that sepcific user 
+    user_obj = User.query.filter_by(username=username).first()
+
+    #get all the recs for that user 
+    user_recs = user_obj.recommendations
+
+    return render_template('username_search.html', user_recs=user_recs, username=username)
+
+
 
 @app.route('/create_rec')
 def create_rec():
@@ -177,7 +195,7 @@ def edit_page():
     #get a list of recommendations that the user_id has created
     user_recs = Recommendation.query.filter_by(user_id=user_id).all()
 
-    return render_template('users_recs.html', user_recs=user_recs, username=username)
+    return render_template('username_search.html', user_recs=user_recs, username=username)
 
 
 

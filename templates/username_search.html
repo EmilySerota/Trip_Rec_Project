@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
 
-  <h2>Usernames with recommendations for {{ city_name }}</h2>
+  <h2>Recommendations created by {{ username }}</h2>
 
   <ul>    
-    {% for rec in recs %}
+    {% for rec in user_recs %}
         <li>
           <a href="/view_recommendation/{{ rec.rec_id }}">'
-            {{ rec.user.username }}
+            {{ rec.city.city_name }} : {{ rec.rec_name }}
           </a>
         </li>
     {% endfor %}
