@@ -1,14 +1,15 @@
 {% extends 'base.html' %}
 {% block content %}
+
 <h2>Edit your recommendation below</h2>
 
 <form action='/recommendations/{{ recommendation.rec_id }}' method="POST">
-    
+   
     <b>TITLE:</b><br>
-    Please enter what you would like to call your review: <input type='text' name=rec_name><br><br>
+    Please edit what you would like to call your review: <input type='text' name=rec_name><br><br>
 
     <b>CITY:</b><br>
-    Please enter the city you will review: <input type='text' name=city_name><br>
+    Please enter the city you will review: {{ recommendation.city.city_name }}<br>
     Add an explanation on what you loved about the city: <input type='text' name=city_info><br><br>
 
     <b>STAY:</b><br>

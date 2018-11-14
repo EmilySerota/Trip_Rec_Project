@@ -221,7 +221,8 @@ def update_recommendation(rec_id):
 
     #get information entered by user
     new_rec_name = request.form.get('rec_name')
-    new_stay_name= request.form.get('stay_name')
+    new_city_info = request.form.get('city_info')
+    new_stay_name = request.form.get('stay_name')
     new_stay_info = request.form.get('stay_info')
     new_eat_name = request.form.get('eat_name')
     new_eat_info = request.form.get('eat_info')
@@ -233,6 +234,8 @@ def update_recommendation(rec_id):
     #check to see if each block of info has changed, and if it has update the information
     if recommendation.rec_name != new_rec_name:
         recommendation.rec_name = new_rec_name
+    if recommendation.city.city_info != new_city_info:
+        recommendation.city.city_info = new_city_info
     if recommendation.stay_name != new_stay_name:
         recommendation.stay_name = new_stay_name
     if recommendation.stay_info != new_stay_info:
@@ -250,15 +253,21 @@ def update_recommendation(rec_id):
     db.session.add(recommendation)
     db.session.commit()
 
-    return redirect('/')
+    return redirect(f'/view_recommendation/{recommendation.rec_id}')
 
 
 @app.route('/rec_delete/<int:rec_id>')
 def delete(rec_id):
+    """delete a recommendation from the db"""
+
+    #get the information for that recommendation object
     recommendation = Recommendation.query.get(rec_id)
+
+    #delete and commit
     db.session.delete(recommendation)
     db.session.commit()
 
+    flash("You've successfully deleted your recommendation")
     return redirect('/')
 
 ##############################################################

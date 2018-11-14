@@ -1,7 +1,26 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h2> Placeholder Rec Page </h2>
+
+<h2>{{recommendation.rec_name}}</h2>
+
+<h3>{{recommendation.city.city_name}}</h3>
+
+<div>{{recommendation.city.city_info}}</div><br>
+
+STAY
+<div>{{recommendation.stay_name}}</div>
+
+<div>{{recommendation.stay_info}}</div><br>
+EAT
+<div>{{recommendation.eat_name}}</div>
+
+<div>{{recommendation.eat_info}}</div><br>
+DO
+<div>{{recommendation.do_name}}</div>
+
+<div>{{recommendation.do_info}}</div><br>
+
 
 {% if session['username'] == recommendation.user.username %}
     <form action='/rec_edit/{{ recommendation.rec_id }}'>
