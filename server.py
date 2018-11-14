@@ -35,6 +35,7 @@ def login_process():
 
     #get username & password entered by user in login template
     username = request.form.get('username')
+    username = username.lower()
     password = request.form.get('password')
 
     #check database for username
@@ -42,6 +43,7 @@ def login_process():
 
     #if username doesnt exist send to register page
     if not user:
+        flash("That username doesn't exist yet! Register here.")
         return redirect('/register')
 
     #if password is wrong flash incorrect password
@@ -52,6 +54,7 @@ def login_process():
     #if they are correct then add to session 
     else:
         session['username'] = username
+        flash("You're logged in! Start reviewing!")
         return redirect('/')
 
 @app.route('/logout')
@@ -73,6 +76,7 @@ def reg_process():
     """process registration"""
 
     username = request.form.get('username')
+    username = username.lower()
     password = request.form.get('password')
     fname = request.form.get('fname')
     lname = request.form.get('lname')
@@ -84,8 +88,11 @@ def reg_process():
         db.session.add(new_user)
         db.session.commit()
 
-    return redirect('/')
-
+        flash('Now simply log in and start reviewing!')
+        return redirect('/')
+    else:
+        flash('User already exists! Choose a new username.')
+        return redirect('/register')
 
 @app.route('/search_city')
 def city_name_search():
@@ -93,6 +100,7 @@ def city_name_search():
 
     #request to get city name
     city_name = request.args.get('city_name')
+    city_name = city_name.lower()
 
     #pull in object info for that specific city - purpose: to get city id
     city_obj = City.query.filter_by(city_name=city_name).first()
@@ -113,6 +121,7 @@ def username_search():
 
     #request to get username
     username = request.args.get('username')
+    username = username.lower()
 
     #pull in object info for that sepcific user 
     user_obj = User.query.filter_by(username=username).first()
@@ -151,6 +160,7 @@ def add_rec_to_db():
 
     #get the city_name & info separately since we need city_name for query anyway
     city_name = request.form.get('city_name')
+    city_name = city_name.lower()
     city_info = request.form.get('city_info')
 
 
