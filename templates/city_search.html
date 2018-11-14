@@ -3,6 +3,9 @@
 
   <h2>Usernames with recommendations for {{ city_name }}</h2>
 
+{% if city_name == None %}
+There are no recommendations for {{ city_name yet}}
+{% else %}
   <ul>    
     {% for rec in recs %}
         <li>
@@ -12,6 +15,7 @@
         </li>
     {% endfor %}
   </ul>
+{% endif %}
 
   <br>
 <form action='/'>

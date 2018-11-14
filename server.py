@@ -90,19 +90,20 @@ def reg_process():
 @app.route('/search_city')
 def city_name_search():
 
+
     #request to get city name
     city_name = request.args.get('city_name')
 
     #pull in object info for that specific city - purpose: to get city id
     city_obj = City.query.filter_by(city_name=city_name).first()
-    
-    #will need to add logic in case noone has reviewed the city
-    #if city_obj == None:
 
     #get the user rec object for all cities of that name
-    recs = city_obj.recommendations
-
-    return render_template('city_search.html', recs=recs, city_name=city_name)
+    if city_obj == None:
+        flash("Sorry, a recommendation for that city hasnt been created yet! You should create one!")
+        return redirect('/')
+    else:
+        recs = city_obj.recommendations 
+        return render_template('city_search.html', recs=recs, city_name=city_name)
 
 
 
@@ -116,10 +117,13 @@ def username_search():
     #pull in object info for that sepcific user 
     user_obj = User.query.filter_by(username=username).first()
 
+    if user_obj == None:
+        flash("Sorry, that username doesn't exist yet!")
+        return redirect('/')
+    else:
     #get all the recs for that user 
-    user_recs = user_obj.recommendations
-
-    return render_template('username_search.html', user_recs=user_recs, username=username)
+        user_recs = user_obj.recommendations
+        return render_template('username_search.html', user_recs=user_recs, username=username)
 
 
 
