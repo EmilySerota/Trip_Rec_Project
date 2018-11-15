@@ -6,23 +6,23 @@
 <form action='/recommendations/{{ recommendation.rec_id }}' method="POST">
    
     <b>TITLE:</b><br>
-    Please edit what you would like to call your review: <input type='text' name=rec_name value="{{ recommendation.rec_name }}"><br><br>
+    Please edit what you would like to call your review: <textarea name=rec_name rows='1' cols='80'>{{ recommendation.rec_name }}</textarea><br><br>
 
     <b>CITY:</b><br>
-    Please enter the city you will review: {{ recommendation.city.city_name }}<br>
-    Add an explanation on what you loved about the city: <input type='text' name=city_info value="{{ recommendation.city.city_info }}"><br><br>
+    Please enter the city you will review: {{ recommendation.city.city_name }} <br>
+    Add an explanation on what you loved about the city: <textarea name=city_info rows='1' cols='80'>{{ recommendation.city.city_info }}</textarea><br><br>
 
     <b>STAY:</b><br>
-    Where did you stay: <input type='text' name=stay_name value="{{ recommendation.stay_name }}"><br>
-    Add information about your stay: <input type='text' name=stay_info value="{{ recommendation.stay_info }}"><br><br>
+    Where did you stay: <textarea name=stay_name rows='1' cols='80'>{{ recommendation.stay_name }}</textarea><br>
+    Add information about your stay: <textarea name=stay_info rows='1' cols='80'>{{ recommendation.stay_info }}</textarea><br><br>
 
     <b>EAT:</b><br>
-    Where must you eat when visiting: <input type='text' name=eat_name value="{{ recommendation.eat_name }}"><br>
-    Add information about those restaurants: <input type='text' name=eat_info value="{{ recommendation.eat_info }}"><br><br>
+    Where must you eat when visiting: <textarea name=eat_name rows='1' cols='80'>{{ recommendation.eat_name }}</textarea><br>
+    Add information about those restaurants: <textarea name=eat_info rows='1' cols='80'>{{ recommendation.eat_info }}</textarea><br><br>
 
     <b>DO:</b><br>
-    What activities do you recommend: <input type='text' name=do_name value="{{ recommendation.do_name }}"><br>
-    Why did you love doing them: <input type='text' name=do_info value="{{ recommendation.do_info }}"><br><br>
+    What activities do you recommend: <textarea name=do_name rows='1' cols='80'>{{ recommendation.do_name }}</textarea><br>
+    Why did you love doing them: <textarea name=do_info rows='1' cols='80'>{{ recommendation.do_info }}</textarea><br><br>
 
 <input type='submit'>
 </form>
