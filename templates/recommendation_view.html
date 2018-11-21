@@ -39,7 +39,7 @@
 <h2>{{recommendation.rec_name}}</h2>
 created by {{ recommendation.user.username }}<br><br>
 
-<h3>{{recommendation.city.city_name | title}}</h3>
+<div>{{recommendation.city.city_name | title}}</div>
 
 <div>{{recommendation.city.city_info}}</div><br>
 
@@ -69,10 +69,14 @@ DO
 {% endif %}
 
 
-<div id="floating-panel">
+<div>
+    <input id="address" type='hidden' value={{recommendation.city.city_name}}>
+</div>
+<!-- <div id="floating-panel">
       <input id="address" type="textbox" value="Sydney, NSW">
       <input id="submit" type="button" value="Geocode">
-</div>
+</div> -->
+
 <div id="map"></div>
 
  <script>
@@ -84,10 +88,15 @@ DO
     });
     var geocoder = new google.maps.Geocoder();
 
-    document.getElementById('submit').addEventListener('click', function() {
+    google.maps.event.addDomListener(window,'load', function() {
         geocodeAddress(geocoder, map);
     });
     }
+
+    // document.getElementById('submit').addEventListener('click', function() {
+    //     geocodeAddress(geocoder, map);
+    // });
+    
 
     function geocodeAddress(geocoder, resultsMap) {
     var address = document.getElementById('address').value;
