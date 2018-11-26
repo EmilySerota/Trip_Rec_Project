@@ -7,8 +7,8 @@
   <ul>    
     {% for rec in user_recs %}
         <li>
-          <a href="/view_recommendation/{{ rec.rec_id }}">'
-            {{ rec.city.city_name }} : {{ rec.rec_name }}
+          <a href="/view_recommendation/{{ rec.rec_id }}">
+            {{ rec.city.city_name  | title}} : {{ rec.rec_name  | title}}
           </a>
         </li>
     {% endfor %}

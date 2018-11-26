@@ -8,7 +8,7 @@
        * element that contains the map. */
       #map {
         height: 400px;
-        width: 400px;
+        width: 600px;
       }
       /* Optional: Makes the sample page fill the window. */
       html, body {
@@ -41,20 +41,20 @@ created by {{ recommendation.user.username }}<br><br>
 
 <div>{{recommendation.city.city_name | title}}</div>
 
-<div>{{recommendation.city.city_info}}</div><br>
+<div><pre>{{recommendation.city.city_info}}</pre></div><br>
 
 STAY
-<div>{{recommendation.stay_name}}</div>
+<div><pre>{{recommendation.stay_name}}</pre></div>
 
-<div>{{recommendation.stay_info}}</div><br>
+<div><pre>{{recommendation.stay_info}}</pre></div><br>
 EAT
-<div>{{recommendation.eat_name}}</div>
+<div><pre>{{recommendation.eat_name}}</pre></div>
 
-<div>{{recommendation.eat_info}}</div><br>
+<div><pre>{{recommendation.eat_info}}</pre></div><br>
 DO
-<div>{{recommendation.do_name}}</div>
+<div><pre>{{recommendation.do_name}}</pre></div>
 
-<div>{{recommendation.do_info}}</div><br>
+<div><pre>{{recommendation.do_info}}</pre></div><br>
 
 
 {% if session['username'] == recommendation.user.username %}
@@ -72,10 +72,6 @@ DO
 <div>
     <input id="address" type='hidden' value={{recommendation.city.city_name}}>
 </div>
-<!-- <div id="floating-panel">
-      <input id="address" type="textbox" value="Sydney, NSW">
-      <input id="submit" type="button" value="Geocode">
-</div> -->
 
 <div id="map"></div>
 
