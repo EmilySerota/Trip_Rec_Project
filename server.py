@@ -1,5 +1,6 @@
 from jinja2 import StrictUndefined
 from flask import Flask, render_template, redirect, request, flash, session
+import hashlib, binascii, os
 
 from flask_debugtoolbar import DebugToolbarExtension
 
@@ -41,21 +42,38 @@ def login_process():
     #check database for username
     user = User.query.filter_by(username = username).first()
 
-    #if username doesnt exist send to register page
-    if not user:
+
+
+
+    #if username exists, place saved db password into a variable for comparison to user input
+    if user:
+        stored_password = user.password
+
+        #get unhashed password
+        salt = stored_password[:64]
+        stored_password = stored_password[64:]
+        pwdhash = hashlib.pbkdf2_hmac('sha512', 
+                                  password.encode('utf-8'), 
+                                  salt.encode('ascii'), 
+                                  100000)
+        pwdhash = binascii.hexlify(pwdhash).decode('ascii')
+
+        #compare the stored and current password, if true log in and redirect
+        if pwdhash == stored_password:
+            session['username'] = username
+            flash("You're logged in! Start reviewing!")
+            return redirect('/')
+
+        #if passwords are not equal incorrect password entry
+        else:
+            flash('Incorrect password')
+            return redirect('/login')
+
+    #if username doesn't exist send them to the registration page
+    else:
         flash("That username doesn't exist yet! Register here.")
         return redirect('/register')
 
-    #if password is wrong flash incorrect password
-    elif password != user.password:
-        flash('Incorrect password')
-        return redirect('/login')
-
-    #if they are correct then add to session 
-    else:
-        session['username'] = username
-        flash("You're logged in! Start reviewing!")
-        return redirect('/')
 
 @app.route('/logout')
 def log_out():
@@ -82,14 +100,27 @@ def reg_process():
     lname = request.form.get('lname')
     email = request.form.get('email')
 
-    #if username is not already in database add
+    #if username is not already in database, hash password then add to db
     if not User.query.filter_by(username = username).all():
+
+        #Hash password for storing
+        salt = hashlib.sha256(os.urandom(60)).hexdigest().encode('ascii')
+        pwdhash = hashlib.pbkdf2_hmac('sha512', password.encode('utf-8'), 
+                                salt, 100000)
+        pwdhash = binascii.hexlify(pwdhash)
+        password = (salt + pwdhash).decode('ascii')
+
+
+        #created the object and add to db
         new_user = User(username=username, password=password, f_name=fname, l_name=lname, email=email)
         db.session.add(new_user)
         db.session.commit()
 
+
         flash('Now simply log in and start reviewing!')
         return redirect('/')
+
+    #if user already exists let the user know    
     else:
         flash('User already exists! Choose a new username.')
         return redirect('/register')
