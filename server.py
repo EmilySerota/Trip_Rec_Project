@@ -180,13 +180,14 @@ def create_rec():
 def add_rec_to_db():
     """recordes info submitted by user, creates the objects for the db, and adds to the db"""
 
-    # Update session on login CAN THIS BE EASIER? Now I"m getting the username in the session, 
-    #then getting that user's user object, then get the user id to pass into the rec id
+    #Update session on login - get the username in the session
     username = session['username']
-    user_obj = User.query.filter_by(username=username).first()
-    user_id = user_obj.user_id
 
-    #need to pass in the city id that is created in the city table as well. Right now the city_id field is blank in rec table.
+    #then get that user's user object,
+    user_obj = User.query.filter_by(username=username).first()
+
+    #then get the user id to pass into the rec table
+    user_id = user_obj.user_id
 
 
     #get the city_name & info separately since we need city_name for query anyway
