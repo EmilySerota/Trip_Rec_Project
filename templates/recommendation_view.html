@@ -41,20 +41,20 @@ created by {{ recommendation.user.username }}<br><br>
 
 <div>{{recommendation.city.city_name | title}}</div>
 
-<div><pre>{{recommendation.city.city_info}}</pre></div><br>
+<div><pre  style="white-space: pre-wrap; word-break: keep-all;">{{recommendation.city.city_info}}</pre></div><br>
 
 STAY
-<div><pre>{{recommendation.stay_name}}</pre></div>
+<div><pre  style="white-space: pre-wrap; word-break: keep-all;">{{recommendation.stay_name}}</pre></div>
 
-<div><pre>{{recommendation.stay_info}}</pre></div><br>
+<div><pre  style="white-space: pre-wrap; word-break: keep-all;">{{recommendation.stay_info}}</pre></div><br>
 EAT
-<div><pre>{{recommendation.eat_name}}</pre></div>
+<div><pre  style="white-space: pre-wrap; word-break: keep-all;">{{recommendation.eat_name}}</pre></div>
 
-<div><pre>{{recommendation.eat_info}}</pre></div><br>
+<div><pre  style="white-space: pre-wrap; word-break: keep-all;">{{recommendation.eat_info}}</pre></div><br>
 DO
-<div><pre>{{recommendation.do_name}}</pre></div>
+<div><pre  style="white-space: pre-wrap; word-break: keep-all;">{{recommendation.do_name}}</pre></div>
 
-<div><pre>{{recommendation.do_info}}</pre></div><br>
+<div><pre  style="white-space: pre-wrap; word-break: keep-all;">{{recommendation.do_info}}</pre></div><br>
 
 
 {% if session['username'] == recommendation.user.username %}
