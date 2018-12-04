@@ -36,7 +36,8 @@ class Recommendation(db.Model):
     eat_name = db.Column(db.String(100), nullable=False)
     eat_info = db.Column(db.String, nullable=True) 
     do_name = db.Column(db.String(100), nullable=False)
-    do_info = db.Column(db.String, nullable=True) 
+    do_info = db.Column(db.String, nullable=True)
+    img_url = db.Column(db.String, nullable=True) 
 
     def save(self):
         """save new recs"""
@@ -45,7 +46,7 @@ class Recommendation(db.Model):
 
     def __repr__(self):
 
-        return f'<Recommendation rec_id={self.rec_id} city_id={self.city_id} user_id={self.user_id} stay_name={self.stay_name} stay_info={self.stay_info} eat_name={self.eat_name} eat_info={self.eat_info} do_name={self.do_name} do_info={self.do_info}>'
+        return f'<Recommendation rec_id={self.rec_id} city_id={self.city_id} user_id={self.user_id} stay_name={self.stay_name} stay_info={self.stay_info} eat_name={self.eat_name} eat_info={self.eat_info} do_name={self.do_name} do_info={self.do_info} img_url={self.img_url}>'
 
         #connect to City db backreferencing cities table
     city = db.relationship('City', backref=db.backref('recommendations'))

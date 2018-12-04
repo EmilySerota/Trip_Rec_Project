@@ -1,14 +1,20 @@
 from jinja2 import StrictUndefined
-from flask import Flask, render_template, redirect, request, flash, session
+from flask import Flask, render_template, redirect, request, flash, session, url_for
 import hashlib, binascii, os
+from werkzeug.utils import secure_filename
 
 from flask_debugtoolbar import DebugToolbarExtension
 
 from model import User, City, Recommendation, connect_to_db, db
 
+UPLOAD_FOLDER = 'static/images'
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 app.secret_key = "ABC"
+
 
 #######################################################################
 
@@ -190,7 +196,7 @@ def add_rec_to_db():
     user_id = user_obj.user_id
 
 
-    #get the city_name & info separately since we need city_name for query anyway
+    #get the city_name & info separately since we need city_name for a query
     city_name = request.form.get('city_name')
     city_name = city_name.lower()
     city_info = request.form.get('city_info')
@@ -207,11 +213,21 @@ def add_rec_to_db():
     else:    
         city_id = city_obj.city_id
 
+    #get the path for the img, save it in the directory and then save the path before adding to the db in url variable
+    file = request.files['file']
+    print(file)
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        app.logger.info(os.path.join(app.config['UPLOAD_FOLDER']))
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+        img_url = f'static/images/{filename}'
+
     #add to the database
     recommendation = Recommendation(rec_name = request.form.get('rec_name'), stay_name= request.form.get('stay_name'), 
                 stay_info = request.form.get('stay_info'), eat_name= request.form.get('eat_name'), 
                 eat_info = request.form.get('eat_info'), do_name= request.form.get('do_name'), 
-                do_info = request.form.get('do_info'), user_id=user_id, city_id=city_id)
+                do_info = request.form.get('do_info'), user_id=user_id, city_id=city_id, img_url=img_url)
 
     #call the save function to add to the database
     db.session.add(recommendation)
@@ -220,6 +236,10 @@ def add_rec_to_db():
     flash("Awesome! You've created a recommendation")
     return redirect(f'/view_recommendation/{recommendation.rec_id}')
 
+
+def allowed_file(filename):
+    return '.' in filename and \
+        filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 @app.route('/recommendations/edit')
@@ -244,6 +264,7 @@ def view_rec(rec_id):
     """show an individual recommendation"""
 
     recommendation = Recommendation.query.get(rec_id)
+    print('%%%%%%%%%%%%%%%%%%%%', recommendation)
     return render_template('recommendation_view.html', recommendation=recommendation)
 
 

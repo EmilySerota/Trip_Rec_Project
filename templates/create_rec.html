@@ -3,7 +3,7 @@
 
 <h2>Create a new recommendation to share with others!</h2>
 
-<form action='/create_new_rec' method="POST">
+<form action='/create_new_rec' enctype=multipart/form-data method="POST">
     
     </b><br>
     Please enter what you would like to call your review: <textarea name=rec_name rows='1' cols='80'></textarea><br><br>
@@ -24,10 +24,12 @@
     What activities do you recommend: <textarea name=do_name rows='1' cols='80'></textarea><br>
     Why did you love doing them: <textarea name=do_info rows='1' cols='80'></textarea><br><br>
 
+    <b>Upload recommendation image!</b><br><p><input type=file name=file>
 
 <input type='submit'>
 </form>
 
+  
 <br>
 <form action='/'>
     <input type="submit" value="Return Home!" />
