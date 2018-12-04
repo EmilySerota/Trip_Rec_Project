@@ -264,7 +264,6 @@ def view_rec(rec_id):
     """show an individual recommendation"""
 
     recommendation = Recommendation.query.get(rec_id)
-    print('%%%%%%%%%%%%%%%%%%%%', recommendation)
     return render_template('recommendation_view.html', recommendation=recommendation)
 
 
