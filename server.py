@@ -213,9 +213,8 @@ def add_rec_to_db():
     else:    
         city_id = city_obj.city_id
 
-    #get the path for the img, save it in the directory and then save the path before adding to the db in url variable
+    #get the path for four images, save it in the directory and then save the path before adding to the db in url variable
     file = request.files['file']
-    print(file)
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
         app.logger.info(os.path.join(app.config['UPLOAD_FOLDER']))
@@ -223,11 +222,37 @@ def add_rec_to_db():
 
         img_url = f'static/images/{filename}'
 
+    file = request.files['file2']
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        app.logger.info(os.path.join(app.config['UPLOAD_FOLDER']))
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+        img_url2 = f'static/images/{filename}'
+
+    file = request.files['file3']
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        app.logger.info(os.path.join(app.config['UPLOAD_FOLDER']))
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+        img_url3 = f'static/images/{filename}'
+
+    file = request.files['file4']
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        app.logger.info(os.path.join(app.config['UPLOAD_FOLDER']))
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+        img_url4 = f'static/images/{filename}'
+
+
+
     #add to the database
     recommendation = Recommendation(rec_name = request.form.get('rec_name'), stay_name= request.form.get('stay_name'), 
                 stay_info = request.form.get('stay_info'), eat_name= request.form.get('eat_name'), 
                 eat_info = request.form.get('eat_info'), do_name= request.form.get('do_name'), 
-                do_info = request.form.get('do_info'), user_id=user_id, city_id=city_id, img_url=img_url)
+                do_info = request.form.get('do_info'), user_id=user_id, city_id=city_id, img_url=img_url, img_url2=img_url2, img_url3=img_url3, img_url4=img_url4)
 
     #call the save function to add to the database
     db.session.add(recommendation)

@@ -36,14 +36,17 @@
 {% block content %}
 
 
-<h2>{{recommendation.rec_name}}</h2>
+<h2>{{recommendation.rec_name | title}}</h2>
 created by {{ recommendation.user.username }}<br><br>
 
 <div>{{recommendation.city.city_name | title}}</div>
 
 <div><pre  style="white-space: pre-wrap; word-break: keep-all;">{{recommendation.city.city_info}}</pre></div><br>
 
-<img src='{{ "../"+recommendation.img_url }}' class="img-thumbnail" alt="Cinque Terre" width="420" height="290"><br><br>
+<img src='{{ "../"+recommendation.img_url }}' class="img-thumbnail" width="420" height="290"><br><br>
+<img src='{{ "../"+recommendation.img_url2 }}' class="img-thumbnail" width="420" height="290"><br><br>
+<img src='{{ "../"+recommendation.img_url3 }}' class="img-thumbnail" width="420" height="290"><br><br>
+<img src='{{ "../"+recommendation.img_url4 }}' class="img-thumbnail" width="420" height="290"><br><br>
 
 STAY
 <div><pre  style="white-space: pre-wrap; word-break: keep-all;">{{recommendation.stay_name}}</pre></div>
