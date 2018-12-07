@@ -37,12 +37,21 @@ h4 {
   margin-top:40px;
 }
 
+.home {
+  margin-right: 80px;
+  margin-left: 80px;
+}
+
+.c_home {
+  text-align: center;
+}
+
 .rec_view {
   margin-right: 80px;
   margin-left: 80px;
 }
 
-.city_recs {
+.city_recs, .user-recs {
   text-align: center;
 }
 
@@ -50,6 +59,12 @@ h4 {
   margin-right: 80px;
   margin-left: 80px;
 }
+
+.edit-form {
+  margin-right: 80px;
+  margin-left: 80px;
+}
+
 
 .carousel-inner {
   display: block;

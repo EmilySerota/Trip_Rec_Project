@@ -4,7 +4,7 @@
   <h2>Recommendations created by {{ username }}</h2>
 
 
-  <ul>    
+  <ul class="user-recs">    
     {% for rec in user_recs %}
         <li>
           <a href="/view_recommendation/{{ rec.rec_id }}">
@@ -16,8 +16,10 @@
 
 
   <br>
+<div class="c_home">
 <form action='/'>
     <input type="submit" value="Return Home!" />
 </form>
+</div>
 
 {% endblock %}
