@@ -8,6 +8,10 @@ pre {
    font-size: 20px;
 }
 
+/*#btn-1, #btn-2 {
+  padding-left: 100px;
+  padding-right: 10px;
+}*/
 
 .center_text {
   text-align:center;
