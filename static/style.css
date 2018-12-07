@@ -1,44 +1,107 @@
-/*
-
-
-.fullscreen-bg {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  overflow: hidden;
-  z-index: -100;
+.center_text {
+  text-align:center;
 }
 
-.fullscreen-bg__video {
+.button-box {
+   text-align:center;
+   margin-top:20px;
+}
+
+.search {
+  text-align: center;
+}
+
+.user_options {
+  text-align: center;
+}
+
+
+h2 {
+  text-align: center;
+}
+
+h3 {
+  text-align: center;
+}
+
+h4 {
+  margin-right: 80px;
+  margin-left: 80px;
+  margin-top:40px;
+}
+
+.rec_view {
+  margin-right: 80px;
+  margin-left: 80px;
+}
+
+.city_recs {
+  text-align: center;
+}
+
+.create_form {
+  margin-right: 80px;
+  margin-left: 80px;
+}
+
+.carousel-inner {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  height: 400px
+}
+
+
+
+#map {
+    height: 1000px;
+}
+
+header {
+  position: relative;
+  height: 75vh;
+  min-height: 25rem;
+  width: 100%;
+  overflow: hidden;
+}
+
+header video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: 0;
+  -ms-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+}
+
+header .container {
+  position: relative;
+  z-index: 2;
+}
+
+header .overlay {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
   height: 100%;
+  width: 100%;
+  opacity: 1;
+  z-index: 1;
 }
 
-@media (min-aspect-ratio: 16/9) {
-  .fullscreen-bg__video {
-    height: 300%;
-    top: -100%;
-  }
-}
-
-@media (max-aspect-ratio: 16/9) {
-  .fullscreen-bg__video {
-    width: 300%;
-    left: -100%;
-  }
-}
-
-@media (max-width: 767px) {
-  .fullscreen-bg {
-    background: url('static/26278748-preview.mp4') center center / cover no-repeat;
-  }
-
-  .fullscreen-bg__video {
+@media (pointer: coarse) and (hover: none) {
+  header video {
     display: none;
   }
-}*/
+}
+
+
+
+

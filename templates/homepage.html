@@ -2,36 +2,54 @@
 {% block content %}
 
 
-<!-- <video autoplay muted loop id="myVideo">
-  <source src="static/26278748-preview.mp4" type="26278748-preview.mp4">
-</video> -->
+<header>
+  <div class="overlay"></div>
+  <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+    <source src="../static/La-Costa/La-Costa.mp4" type="video/mp4">
+  </video>
+  <div class="container h-100">
+    <div class="d-flex text-center h-100">
+      <div class="my-auto w-100 text-white">
+        <h1 class="display-3">MYRecs</h1>
+        <h2>Create, Share, Enjoy!</h2>
+      </div>
+    </div>
+  </div>
+</header>
+
+
 
 <!-- button create/edit city rec page (only show if logged in) -->
 {% if session['username'] %}
 {% else %}
-    <form action='/login'>
-    <input type="submit" value="Login"'>
+  <!-- <div id="btn-container" class="btn-group"> -->
+  <div class="button-box col-lg-12">
+
+    <form action='/login'><button type="submit" class="btn btn-primary">Login</button>
     </form>
 
-    <form action='/register'>
-    <input type="submit" value="Register"'>
+    <form action='/register'><button type="submit" class="btn btn-primary">Register</button>
     </form>
+  </div>
+
 {% endif %}
 
-<br><form action='/search_city'>
+<div class="search">
+  <br><form action='/search_city'>
 Search for recommendations by city! <input type='text' name=city_name>
-<input type='submit'>
-</form>
+  <input type='submit'>
+  </form>
 
 <!-- name will be the username they want to see city options for -->
-<form action='/search_username'>
-Search for recommendations by username! <input type='text' name= 'username'>
-<input type='submit'>
-</form><br>
+  <form action='/search_username'>
+  Search for recommendations by username! <input type='text' name= 'username'>
+  <input type='submit'>
+  </form><br>
+</div>
 
 {% if not session['username'] %}
 {% else %}
-  
+  <div class="user_options">
     <form action='/create_rec'>
     <input type="submit" value="Create New Recommendation!"'>
     </form><br>
@@ -43,6 +61,7 @@ Search for recommendations by username! <input type='text' name= 'username'>
     <form action='/logout'>
     <input type="submit" value="Logout"'>
     </form>
+  </div>
 {% endif %}
 
 

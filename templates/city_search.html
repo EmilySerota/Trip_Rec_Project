@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
 
-  <h2>Usernames with recommendations for {{ city_name }}</h2>
+  <h2>Usernames with recommendations for {{ city_name | title}}</h2>
 
 
-  <ul>    
+<!-- <div class="city_recs"> -->
+  <ul class="city_recs">    
     {% for rec in recs %}
         <li>
           <a href="/view_recommendation/{{ rec.rec_id }}">
@@ -13,7 +14,7 @@
         </li>
     {% endfor %}
   </ul>
-
+<!-- </div> -->
 
   <br>
 <form action='/'>

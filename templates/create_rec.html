@@ -2,7 +2,7 @@
 {% block content %}
 
 <h2>Create a new recommendation to share with others!</h2>
-
+<div class=create_form>
 <form action='/create_new_rec' enctype=multipart/form-data method="POST">
     
     </b><br>
@@ -24,7 +24,8 @@
     What activities do you recommend doing/avoiding: <textarea name=do_name rows='1' cols='80'></textarea><br>
     Why do/don't do those activities: <textarea name=do_info class='form-control' rows='3' cols='80'></textarea><br><br>
 
-    <div><b>Upload images for your city recommendation!</b><br><p><input type=file name=file>
+    <div><b>Upload images for your city recommendation!</b><br><p>
+    <input type=file name=file>
     <input type=file name=file2>
     <input type=file name=file3>
     <input type=file name=file4>
@@ -32,6 +33,7 @@
 
 <input type='submit'>
 </form>
+</div>
 
   
 <br>
