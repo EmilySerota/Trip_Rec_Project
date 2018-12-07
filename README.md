@@ -1,14 +1,14 @@
-#MYRecs
+# MYRecs
 
-##Summary
+## Summary
 
-**MYRecs** is a user login based application that allows users to easily create, update, and search for recommendations when traveling to different cities around the world. MYRecs eliminates the time spent scanning travel sites, blog posts, and following up with friends for recommendations, as you can easily create or search for recommendations by username or city. 
+** MYRecs ** is a user login based application that allows users to easily create, update, and search for recommendations when traveling to different cities around the world. MYRecs eliminates the time spent scanning travel sites, blog posts, and following up with friends for recommendations, as you can easily create or search for recommendations by username or city. 
 
-##About the Developer
+## About the Developer
 
 MYRecs was created by Emily Serota. Learn more about the developer on [LinkedIN](https://www.linkedin.com/in/emilyserota).
 
-##Technologies
+## Technologies
 
 **Tech Stack:**
 
