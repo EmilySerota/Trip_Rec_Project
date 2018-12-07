@@ -16,6 +16,13 @@
 }
 
 
+.login_f {
+  display: block;
+  text-align: center;
+  margin-left: 400px;
+  margin-right: 400px;
+}
+
 h2 {
   text-align: center;
 }

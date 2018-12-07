@@ -2,16 +2,19 @@
 {% block content %}
 
 
-<h1>Login Form</h1>
+<h2>Login Form</h2>
 
 {% if session['username'] %}
     You're already logged in!
 {% else %}
+<div class="login_f">
     <form action='/login' method=POST>
-    Username: <input type='text' class='form-control' id='username' placeholder='Enter username' name='username'><br>
-    Password: <input type='password' class='form-control' name='password' placeholder="Enter Password"><br>
+    Username:<input type='text' class='form-control text-center' id='username' placeholder='Enter username' name='username'><br>
+    Password: <input type='password' class='form-control text-center' name='password' placeholder="Enter Password"><br>
     <input type='submit' value='Submit'>
     </form>
+</div>
+
 {% endif %}
 
 <br><br>
