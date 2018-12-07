@@ -1,3 +1,14 @@
+@import url(http://fonts.googleapis.com/css?family=Oswald:400,300,700);
+body {
+  font-family: 'Oswald', sans-serif !important;
+}
+
+pre {
+   font-family: 'Oswald', sans-serif !important;
+   font-size: 20px;
+}
+
+
 .center_text {
   text-align:center;
 }
@@ -16,20 +27,17 @@
 }
 
 
-.login_f {
+.login_f, .reg_f {
   display: block;
   text-align: center;
   margin-left: 400px;
   margin-right: 400px;
 }
 
-h2 {
+h1, h2, h3 {
   text-align: center;
 }
 
-h3 {
-  text-align: center;
-}
 
 h4 {
   margin-right: 80px;
@@ -47,13 +55,16 @@ h4 {
 }
 
 .rec_view {
-  margin-right: 80px;
-  margin-left: 80px;
+/*  margin-right: 80px;
+  margin-left: 80px;*/
+  text-align:center;
 }
 
 .city_recs, .user-recs {
   text-align: center;
+  list-style-position: inside;
 }
+
 
 .create_form {
   margin-right: 80px;

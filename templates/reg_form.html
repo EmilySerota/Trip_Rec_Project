@@ -2,7 +2,7 @@
 {% block content %}
 
 <H1>Registration Form</H1>
-
+<div class="reg_f">
 <form action='/register' method=POST>
     Please enter the following information to create a profile!<br><br>
 
@@ -13,10 +13,12 @@
     Email: <input type='email' class='form-control' placeholder='Enter your email' name='email'><br>
     <input type=submit value='Submit'></div>
 </form>
-
+</div>
 <br>
+<div class="c_home">
 <form action='/'>
     <input type="submit" value="Return Home!" />
 </form>
+</div>
 
 {% endblock %}

@@ -12,11 +12,11 @@
 
   <hr>
 
-  <ul>
+  <!-- <ul> -->
     {%for message in get_flashed_messages() %}
-    <li> {{ message }}</li>
+     <div class="alert alert-info">{{ message }}</div>
     {% endfor %}
-  </ul>
+ <!--  </ul> -->
 
   {% block content %} put your content here {% endblock %}
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
