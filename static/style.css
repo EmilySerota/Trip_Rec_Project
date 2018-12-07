@@ -24,6 +24,7 @@ pre {
 
 .user_options {
   text-align: center;
+  margin-bottom:40px;
 }
 
 
@@ -48,10 +49,12 @@ h4 {
 .home {
   margin-right: 80px;
   margin-left: 80px;
+  margin-bottom:40px;
 }
 
 .c_home {
   text-align: center;
+  margin-bottom:40px;
 }
 
 .rec_view {

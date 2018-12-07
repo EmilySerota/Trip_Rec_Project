@@ -15,6 +15,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 app.secret_key = "ABC"
 
+app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
 #######################################################################
 
