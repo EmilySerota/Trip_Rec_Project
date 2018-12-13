@@ -24,9 +24,9 @@ MYRecs was created by Emily Serota. Learn more about the developer on [LinkedIN]
 
 MYRecs is an app built on a Flask server with a PostgreSQL database, and SQLAlchemy as the ORM. The front end consists of Jinja2, HTML, Bootstrap, and Javascript. The user login in utilizes password salting and the hashlib. The map is built using the Google Geocoding API.
 
-<!-- ![MYRECS homepage logged out](github.com/emily-serota/Trip_Rec_Project/static/screenshots/homepage-logged-out)
+![screen shot 2018-12-10 at 9 52 39 pm](https://user-images.githubusercontent.com/38198868/49908135-0162c100-fe2e-11e8-8e83-f6ab81bf82e2.png)
 <br/><br/><br/>
-Register or login to create new or edit your recommendations. If a user chooses not to login they can still search for existing recommendations, but cannot create or edit recommendations.  -->
+Register or login to create new or edit your recommendations. If a user chooses not to login they can still search for existing recommendations, but cannot create or edit recommendations. 
 
 
 
