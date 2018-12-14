@@ -42,7 +42,6 @@ Once a user is logged in they have more capabilities
 Create a new recommendation
 
 ![screen shot 2018-12-14 at 1 52 23 pm](https://user-images.githubusercontent.com/38198868/50034595-84148900-ffb2-11e8-9303-b6b0a2e298c8.png)
-![screen shot 2018-12-14 at 1 53 07 pm](https://user-images.githubusercontent.com/38198868/50034648-c9d15180-ffb2-11e8-8ed6-ed1c0d6aff19.png)
 ![screen shot 2018-12-14 at 1 52 41 pm](https://user-images.githubusercontent.com/38198868/50034599-8d055a80-ffb2-11e8-9501-9488d50a095e.png)
 <br/><br/><br/>
 View the recommendation
